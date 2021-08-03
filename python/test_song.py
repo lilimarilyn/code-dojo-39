@@ -1,4 +1,8 @@
-song = """There was an old lady who swallowed a fly.
+import unittest
+
+from python.song import SomeNameGoesHere
+
+ORIGINAL_SONG = """There was an old lady who swallowed a fly.
 I don't know why she swallowed a fly - perhaps she'll die!
 
 There was an old lady who swallowed a spider;
@@ -40,17 +44,7 @@ There was an old lady who swallowed a horse...
 ...She's dead, of course!"""
 
 
-# print(song)
-
-
-class SomeNameGoesHere:
-    def __init__(self):
-        pass
-
-    def sing(self):
-        return song
-
-
-here = SomeNameGoesHere()
-here_sing = here.sing()
-print(here_sing)
+class TestingSong(unittest.TestCase):
+    def test_original_song_is_working(self):
+        here_sing = SomeNameGoesHere().sing()
+        self.assertEqual(here_sing, ORIGINAL_SONG)
