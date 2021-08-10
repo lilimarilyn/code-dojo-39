@@ -39,26 +39,47 @@ I don't know why she swallowed a fly - perhaps she'll die!
 There was an old lady who swallowed a horse...
 ...She's dead, of course!"""
 
+ORIGINAL_ANIMALS_OF_THE_SONG = ['fly', 'spider', 'bird', 'cat', 'dog', 'cow', 'horse']
+
 
 class Song:
-    def __init__(self, lyrics):
-        self.lyrics = lyrics
+    first_verse = "There was an old lady who swallowed a {}."
+    middle_verse = "She swallowed the {} to catch the {};"
+    last_verse = "I don't know why she swallowed a {} - perhaps she'll die!"
+    final_verse_of_the_song = "There was an old lady who swallowed a {}...\n...She's dead, of course!"
+    funny_verses = [
+        'That wriggled and wiggled and tickled inside her.',
+        'How absurd to swallow a {}.',
+        'Fancy that to swallow a {}!',
+        'What a hog, to swallow a {}!',
+        "I don't know how she swallowed a {}!",
+    ]
+
+    def __init__(self, animals_for_song):
+        if not animals_for_song:
+            self.animals_for_song = ORIGINAL_ANIMALS_OF_THE_SONG
+        else:
+            self.animals_for_song = animals_for_song
 
     def adapt_original_lyrics(self):
-        return song
+        if len(self.animals_for_song) > 1:
+            return song
+        final_verse_of_the_song = self.final_verse_of_the_song.format(self.animals_for_song[0])
+        return final_verse_of_the_song
 
 
 class Singer:
     def __init__(self):
-        self.lyrics = False
+        self.animals_for_song = []
 
-    def choose_animal_for_song(self, lyrics):
-        self.lyrics = lyrics
+    def choose_animals_for_song(self, animals_for_song):
+        self.animals_for_song = animals_for_song
 
     def sing(self):
-        return Song(self.lyrics).adapt_original_lyrics()
+        return Song(self.animals_for_song).adapt_original_lyrics()
 
 
 singer = Singer()
-singer.choose_animal_for_song([])
+# singer.choose_animals_for_song(['fly', 'spider', 'bird', 'cat', 'dog', 'cow', 'horse'])
+singer.choose_animals_for_song(['fly'])
 print(singer.sing())
