@@ -43,7 +43,8 @@ ORIGINAL_ANIMALS_OF_THE_SONG = ['fly', 'spider', 'bird', 'cat', 'dog', 'cow', 'h
 
 
 class Song:
-    first_verse = "There was an old lady who swallowed a {}."
+    first_verse_of_the_song = "There was an old lady who swallowed a {}."
+    first_verse = "There was an old lady who swallowed a {};"
     middle_verse = "She swallowed the {} to catch the {};"
     last_verse = "I don't know why she swallowed a {} - perhaps she'll die!"
     final_verse_of_the_song = "There was an old lady who swallowed a {}...\n...She's dead, of course!"
@@ -70,14 +71,22 @@ class Song:
         else:
             amount_of_animals = len(self.animals_for_song)
             final_song = ""
+            funny_verse_position = 0
             for position, animal in enumerate(self.animals_for_song):
                 if position == 0:
-                    final_song += self.first_verse.format(animal)
+                    final_song += self.first_verse_of_the_song.format(animal)
                     final_song += "\n" + self.last_verse.format(animal)
                 elif position == amount_of_animals - 1:
                     final_song += "\n\n" + self.final_verse_of_the_song.format(animal)
                 else:
-                    pass
+                    final_song += "\n\n" + self.first_verse.format(animal)
+                    final_song += "\n" + self.funny_verses[funny_verse_position]
+                    final_song += "\n" + self.middle_verse.format(animal, self.animals_for_song[position - 1])
+                    final_song += "\n" + self.last_verse.format(self.animals_for_song[0])
+                    if funny_verse_position == len(self.funny_verses) - 1:
+                        funny_verse_position = 0
+                    else:
+                        funny_verse_position += 1
             return final_song
 
 
