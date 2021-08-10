@@ -47,6 +47,7 @@ There was an old lady who swallowed a horse...
 class TestSong(unittest.TestCase):
     def test_original_song(self):
         singer = Singer()
+        singer.choose_animal_for_song([])
         self.assertEqual(singer.sing(), ORIGINAL_SONG)
 
 

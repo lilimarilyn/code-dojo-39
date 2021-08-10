@@ -40,13 +40,25 @@ There was an old lady who swallowed a horse...
 ...She's dead, of course!"""
 
 
-class Singer:
-    def __init__(self):
-        pass
+class Song:
+    def __init__(self, lyrics):
+        self.lyrics = lyrics
 
-    def sing(self):
+    def adapt_original_lyrics(self):
         return song
 
 
+class Singer:
+    def __init__(self):
+        self.lyrics = False
+
+    def choose_animal_for_song(self, lyrics):
+        self.lyrics = lyrics
+
+    def sing(self):
+        return Song(self.lyrics).adapt_original_lyrics()
+
+
 singer = Singer()
+singer.choose_animal_for_song([])
 print(singer.sing())
