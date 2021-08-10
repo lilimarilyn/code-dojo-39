@@ -1,50 +1,10 @@
-song = """There was an old lady who swallowed a fly.
-I don't know why she swallowed a fly - perhaps she'll die!
-
-There was an old lady who swallowed a spider;
-That wriggled and wiggled and tickled inside her.
-She swallowed the spider to catch the fly;
-I don't know why she swallowed a fly - perhaps she'll die!
-
-There was an old lady who swallowed a bird;
-How absurd to swallow a bird.
-She swallowed the bird to catch the spider,
-She swallowed the spider to catch the fly;
-I don't know why she swallowed a fly - perhaps she'll die!
-
-There was an old lady who swallowed a cat;
-Fancy that to swallow a cat!
-She swallowed the cat to catch the bird,
-She swallowed the bird to catch the spider,
-She swallowed the spider to catch the fly;
-I don't know why she swallowed a fly - perhaps she'll die!
-
-There was an old lady who swallowed a dog;
-What a hog, to swallow a dog!
-She swallowed the dog to catch the cat,
-She swallowed the cat to catch the bird,
-She swallowed the bird to catch the spider,
-She swallowed the spider to catch the fly;
-I don't know why she swallowed a fly - perhaps she'll die!
-
-There was an old lady who swallowed a cow;
-I don't know how she swallowed a cow!
-She swallowed the cow to catch the dog,
-She swallowed the dog to catch the cat,
-She swallowed the cat to catch the bird,
-She swallowed the bird to catch the spider,
-She swallowed the spider to catch the fly;
-I don't know why she swallowed a fly - perhaps she'll die!
-
-There was an old lady who swallowed a horse...
-...She's dead, of course!"""
-
 ORIGINAL_ANIMALS_OF_THE_SONG = ['fly', 'spider', 'bird', 'cat', 'dog', 'cow', 'horse']
 
 
 class Song:
     first_verse_of_the_song = "There was an old lady who swallowed a {}."
     first_verse = "There was an old lady who swallowed a {};"
+    first_middle_verse = "She swallowed the {} to catch the {},"
     middle_verse = "She swallowed the {} to catch the {};"
     last_verse = "I don't know why she swallowed a {} - perhaps she'll die!"
     final_verse_of_the_song = "There was an old lady who swallowed a {}...\n...She's dead, of course!"
@@ -63,9 +23,7 @@ class Song:
             self.animals_for_song = animals_for_song
 
     def adapt_original_lyrics(self):
-        if len(self.animals_for_song) == 7:
-            return song
-        elif len(self.animals_for_song) == 1:
+        if len(self.animals_for_song) == 1:
             final_verse_of_the_song = self.final_verse_of_the_song.format(self.animals_for_song[0])
             return final_verse_of_the_song
         else:
@@ -80,8 +38,25 @@ class Song:
                     final_song += "\n\n" + self.final_verse_of_the_song.format(animal)
                 else:
                     final_song += "\n\n" + self.first_verse.format(animal)
-                    final_song += "\n" + self.funny_verses[funny_verse_position]
-                    final_song += "\n" + self.middle_verse.format(animal, self.animals_for_song[position - 1])
+                    if funny_verse_position == 0:
+                        final_song += "\n" + self.funny_verses[funny_verse_position]
+                    else:
+                        final_song += "\n" + self.funny_verses[funny_verse_position].format(animal)
+                    if position > 1:
+                        amount_of_animals_for_use_in_middle_verse = position
+                        while amount_of_animals_for_use_in_middle_verse > 0:
+                            first_animal_in_verse = self.animals_for_song[amount_of_animals_for_use_in_middle_verse]
+                            second_animal_in_verse = self.animals_for_song[
+                                amount_of_animals_for_use_in_middle_verse - 1]
+                            if amount_of_animals_for_use_in_middle_verse > 1:
+                                final_song += "\n" + self.first_middle_verse.format(first_animal_in_verse,
+                                                                                    second_animal_in_verse)
+                            else:
+                                final_song += "\n" + self.middle_verse.format(first_animal_in_verse,
+                                                                              second_animal_in_verse)
+                            amount_of_animals_for_use_in_middle_verse -= 1
+                    else:
+                        final_song += "\n" + self.middle_verse.format(animal, self.animals_for_song[position - 1])
                     final_song += "\n" + self.last_verse.format(self.animals_for_song[0])
                     if funny_verse_position == len(self.funny_verses) - 1:
                         funny_verse_position = 0
@@ -103,5 +78,8 @@ class Singer:
 
 singer = Singer()
 # singer.choose_animals_for_song(['fly', 'spider', 'bird', 'cat', 'dog', 'cow', 'horse'])
-singer.choose_animals_for_song(['fly'])
+# singer.choose_animals_for_song(['fly'])
+# singer.choose_animals_for_song(['fly', 'spider', 'bird', 'cat', 'dog', 'cow', 'horse', 'monkey'])
+singer.choose_animals_for_song(
+    ['perezoso', 'cucharacha', 'bb8', 'doraemon', 'marvinelmarciano', 'luisitocomunicia', 'messi', 'ibai'])
 print(singer.sing())
