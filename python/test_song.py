@@ -46,6 +46,12 @@ There was an old lady who swallowed a horse...
 SONG_WITH_ONE_ANIMAL = """There was an old lady who swallowed a fly...
 ...She's dead, of course!"""
 
+SONG_WITH_TWO_ANIMALS = """There was an old lady who swallowed a fly.
+I don't know why she swallowed a fly - perhaps she'll die!
+
+There was an old lady who swallowed a spider...
+...She's dead, of course!"""
+
 
 class TestSong(unittest.TestCase):
     def test_original_song(self):
@@ -57,6 +63,11 @@ class TestSong(unittest.TestCase):
         singer = Singer()
         singer.choose_animals_for_song(['fly'])
         self.assertEqual(singer.sing(), SONG_WITH_ONE_ANIMAL)
+
+    def test_two_animals_song(self):
+        singer = Singer()
+        singer.choose_animals_for_song(['fly', 'spider'])
+        self.assertEqual(singer.sing(), SONG_WITH_TWO_ANIMALS)
 
 
 if __name__ == '__main__':
