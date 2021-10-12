@@ -1,5 +1,6 @@
 ORIGINAL_ANIMALS_OF_THE_SONG = ['fly', 'spider', 'bird', 'cat', 'dog', 'cow', 'horse']
 
+UN_ANIMAL=1
 
 class Song:
     first_verse_of_the_song = "There was an old lady who swallowed a {}."
@@ -18,14 +19,16 @@ class Song:
 
     def __init__(self, animals_for_song):
         if not animals_for_song:
+
+            
             self.animals_for_song = ORIGINAL_ANIMALS_OF_THE_SONG
         else:
             self.animals_for_song = animals_for_song
 
     def adapt_original_lyrics(self):
-        if len(self.animals_for_song) == 1:
-            final_verse_of_the_song = self.final_verse_of_the_song.format(self.animals_for_song[0])
-            return final_verse_of_the_song
+
+        if len(self.animals_for_song) == UN_ANIMAL:
+            return self.adaptar_cancion_para_un_solo_animal()
         else:
             amount_of_animals = len(self.animals_for_song)
             final_song = ""
